@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<style>
+    .todo {
+        border: 1px solid #000000;
+        padding: 10px;
+        margin: 10px 0;
+    }
+</style>
+<body>
+    <h1>Todo List</h1>
+    <div id="todo-container"></div>
+
+    <script>
+        fetch('/todo')
+            .then(response => response.json())
+            .then(todos => {
+                const container = document.getElementById('todo-container');
+                todos.forEach(todo => {
+                    const todoDiv = document.createElement('div');
+                    todoDiv.className = `todo`;
+                    todoDiv.innerHTML = `
+                        <div>Title: ${todo.title}</div>
+                        <div>Status: ${todo.completed ? 'Completed' : 'Not Completed'}</div>
+                    `;
+                    container.appendChild(todoDiv);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching todos:', error);
+                document.getElementById('todo-container').innerHTML = '<p>Error loading todos</p>';
+            });
+    </script>
+</body>
+</html>
