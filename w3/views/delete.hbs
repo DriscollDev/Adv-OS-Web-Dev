@@ -1,0 +1,23 @@
+{{> header}}
+
+<h2>Delete Employee</h2>
+
+{{#if deletedMessage}}
+  <h2>{{deletedMessage}}</h2>
+  <a href="/view">Back to Employee List</a>
+{{else}}
+  <p>Are you sure you want to delete this employee?</p>
+  <ul>
+    <li><strong>First Name:</strong> {{employee.firstName}}</li>
+    <li><strong>Last Name:</strong> {{employee.lastName}}</li>
+    <li><strong>Department:</strong> {{employee.department}}</li>
+    <li><strong>Job Title:</strong> {{employee.jobTitle}}</li>
+  </ul>
+
+  <form action="/delete/{{employee._id}}" method="POST">
+    <button type="submit" class="danger">Delete Employee</button>
+    <a href="/view">Cancel</a>
+  </form>
+{{/if}}
+
+{{> footer}}
