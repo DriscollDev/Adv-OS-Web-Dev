@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "express-handlebars": "^8.0.1",
-    "mongoose": "^9.2.4"
-  }
-}

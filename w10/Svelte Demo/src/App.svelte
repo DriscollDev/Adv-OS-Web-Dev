@@ -12,7 +12,6 @@
       title: 'Esports Team Assistant',
       track: 'Frontend',
       week: 10,
-      effort: 4,
       status: 'Ready to Demo',
       stack: 'Svelte, fetch, REST API',
       summary: 'User can track player ranks for teams in their tournament'
@@ -20,9 +19,8 @@
     {
       id: '2',
       title: 'Live Support Queue',
-      track: 'Full Stack',
+      track: 'Frontend',
       week: 11,
-      effort: 5,
       status: 'Building',
       stack: 'Svelte, Express, WebSocket',
       summary: 'A lightweight queue that updates in real-time so support agents and users can track wait times without refreshing.'
@@ -32,7 +30,6 @@
       title: 'Algorithm Visualizer',
       track: 'Data Viz',
       week: 12,
-      effort: 3,
       status: 'Idea',
       stack: 'Svelte motion, SVG, stores',
       summary: 'Interactive step-through views for sorting, searching, and graph algorithms so users can understand each state transition.'
@@ -42,7 +39,6 @@
       title: 'Commit Message Helper',
       track: 'Developer Tools',
       week: 13,
-      effort: 2,
       status: 'Building',
       stack: 'Svelte, form bindings, llm integration',
       summary: 'Assists developers in writing clear, consistent commit messages and tracks adherence to commit conventions.'
@@ -58,11 +54,9 @@
     title: '',
     track: 'Full Stack',
     week: 14,
-    effort: 3,
     summary: ''
   })
 
-  // Derived options combine the default "All" filter with available tracks.
   const trackFilters = $derived(['All', ...trackOptions])
 
   // Derived list updates automatically when filters or project data changes.
@@ -85,11 +79,6 @@
   // Dashboard metrics computed from the same projects source of truth.
   const readyProjects = $derived(projects.filter((project) => project.status === 'Ready to Demo').length)
   const buildingProjects = $derived(projects.filter((project) => project.status === 'Building').length)
-  const averageEffort = $derived(
-    projects.length
-      ? (projects.reduce((total, project) => total + project.effort, 0) / projects.length).toFixed(1)
-      : '0.0'
-  )
   const completionRate = $derived(
     projects.length ? Math.round((readyProjects / projects.length) * 100) : 0
   )
@@ -126,7 +115,6 @@
         title,
         track: draft.track,
         week: Number(draft.week),
-        effort: Number(draft.effort),
         status: 'Idea',
         stack: 'Svelte, components, bindings',
         summary
@@ -138,7 +126,6 @@
       title: '',
       track: draft.track,
       week: draft.week,
-      effort: 3,
       summary: ''
     }
   }
@@ -148,7 +135,7 @@
   <!-- Intro panel describing what this demo app showcases. -->
   <section class="hero panel">
     <div class="hero-copy">
-      <p class="eyebrow">Sample App</p>
+      <p class="eyebrow">Demo App</p>
       <h1>Sprint Studio</h1>
       <div class="hero-points">
         <span>Reactive filters</span>
@@ -159,7 +146,7 @@
 
     <div class="hero-note">
       <p class="hero-note-label">Note</p>
-      <p>
+      <p class="hero-note-body">
         No DB usage in this, as its a demo primarily focused on Svelte's reactivity and bindings.
       </p>
     </div>
@@ -170,7 +157,7 @@
     <MetricCard title="Total Ideas" value={projects.length} detail="Projects currently in the board" tone="neutral" />
     <MetricCard title="In Progress" value={buildingProjects} detail="Work that still needs implementation and testing" tone="warm" />
     <MetricCard title="Demo Ready" value={readyProjects} detail="Features that a team could realistically present today" tone="cool" />
-    <MetricCard title="Completion" value={`${completionRate}%`} detail={`Average effort is ${averageEffort} / 5 story points`} tone="accent" />
+    <MetricCard title="Completion" value={`${completionRate}%`} detail={`Percentage of projects demo ready`} tone="accent" />
   </section>
 
   <!-- Main workspace: board and form side-by-side on larger screens. -->
@@ -207,7 +194,6 @@
       </div>
 
       <div class="project-grid">
-        <!-- Keyed each keeps card identity stable during updates/reordering. -->
         {#each filteredProjects as project (project.id)}
           <LabCard lab={project} onAdvanceStatus={advanceStatus} />
         {:else}
@@ -243,16 +229,10 @@
           </select>
         </label>
 
-        <div class="split-fields">
+        <div class="">
           <label>
-            <span>Target week</span>
+            <span>Weeks</span>
             <input bind:value={draft.week} type="number" min="10" max="16" />
-          </label>
-
-          <label>
-            <span>Effort</span>
-            <input bind:value={draft.effort} type="range" min="1" max="5" />
-            <small>{draft.effort} / 5</small>
           </label>
         </div>
 
@@ -271,8 +251,7 @@
         <p>{draft.summary || 'As students type, the preview updates automatically through Svelte bindings.'}</p>
         <div class="preview-meta">
           <span>{draft.track}</span>
-          <span>Week {draft.week}</span>
-          <span>Effort {draft.effort}</span>
+          <span>{draft.week} Weeks</span>
         </div>
       </div>
     </section>

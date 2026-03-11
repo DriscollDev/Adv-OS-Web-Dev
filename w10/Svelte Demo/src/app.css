@@ -83,8 +83,13 @@ button {
 
 .hero-note {
   padding: 1.25rem;
-  background: linear-gradient(180deg, rgba(255, 62, 0, 0.1), rgba(38, 38, 38, 0.9));
+  background: linear-gradient(180deg, #ff3e001a, rgba(38, 38, 38, 0.9));
   border: 1px solid rgba(255, 62, 0, 0.2);
+
+}
+
+.hero-note-body {
+  color: #f6f6f6;
 }
 
 /* Reusable heading/label styles for section titles and chips. */
@@ -114,14 +119,6 @@ h1 {
 
 h2 {
   font-size: 1.6rem;
-}
-
-.lede,
-.section-note,
-.hero-note p,
-.preview-card p,
-.empty-state p {
-  color: var(--ink-soft);
 }
 
 .lede {

@@ -14,7 +14,7 @@
 <article class="lab-card" data-status={lab.status}>
   <div class="card-top">
     <span class="track-chip">{lab.track}</span>
-    <span class="week-chip">Week {lab.week}</span>
+    <span class="week-chip">{lab.week} Weeks</span>
   </div>
 
   <div class="title-row">
@@ -26,7 +26,6 @@
 
   <div class="meta-row">
     <span>{lab.stack}</span>
-    <span>Effort {lab.effort} / 5</span>
   </div>
 
   <button type="button" onclick={() => onAdvanceStatus(lab.id)}>
