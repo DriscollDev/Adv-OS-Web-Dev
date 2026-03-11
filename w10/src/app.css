@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+/* Global tokens and base visual theme. */
+:root {
+  font-family: 'IBM Plex Sans', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #f6f6f6;
+  background:
+    radial-gradient(circle at top right, rgba(255, 62, 0, 0.1), transparent 40%),
+    radial-gradient(circle at bottom left, rgba(255, 62, 0, 0.05), transparent 35%),
+    #1a1a1a;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --panel: rgba(38, 38, 38, 0.92);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --ink-soft: #888888;
+  --accent: #FF3E00;
+  --accent-strong: #ff6240;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Layout foundation and consistent form control behavior. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+#app {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+/* Shared panel shell used across the hero, board, and sidebar. */
+.shell {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+/* Hero area for title, quick highlights, and context note. */
+.hero {
+  display: grid;
+  grid-template-columns: 2.1fr 1fr;
+  gap: 1.5rem;
+  padding: 1.75rem;
+}
+
+.hero-copy,
+.hero-note {
+  border-radius: 22px;
+}
+
+.hero-copy {
+  padding: 0.25rem 0.25rem 0.25rem 0;
+}
+
+.hero-note {
+  padding: 1.25rem;
+  background: linear-gradient(180deg, rgba(255, 62, 0, 0.1), rgba(38, 38, 38, 0.9));
+  border: 1px solid rgba(255, 62, 0, 0.2);
+}
+
+/* Reusable heading/label styles for section titles and chips. */
+.hero-note-label,
+.eyebrow,
+.preview-label {
+  margin: 0 0 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+.lede,
+.section-note,
+.hero-note p,
+.preview-card p,
+.empty-state p {
+  color: var(--ink-soft);
+}
+
+.lede {
+  max-width: 62ch;
+  margin: 1rem 0 0;
+  font-size: 1.05rem;
+}
+
+.hero-points,
+.preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.hero-points {
+  margin-top: 1.25rem;
+}
+
+.hero-points span,
+.preview-meta span {
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.92rem;
+}
+
+/* Grid layout for metrics, board cards, and form composition. */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 1.5rem;
+}
+
+.board-panel,
+.sidebar-panel {
+  padding: 1.35rem;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1.2rem;
+}
+
+.section-heading.compact {
+  margin-bottom: 1rem;
+}
+
+.controls,
+.split-fields {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.controls {
+  grid-template-columns: 1.5fr 0.8fr auto;
+  align-items: end;
+  margin-bottom: 1.1rem;
+}
+
+/* Inputs and interaction states for filters and form fields. */
+label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+label span,
+.checkbox-row span {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: rgba(38, 38, 38, 0.92);
+  color: #f6f6f6;
+  padding: 0.82rem 0.95rem;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: rgba(255, 62, 0, 0.8);
+  box-shadow: 0 0 0 4px rgba(255, 62, 0, 0.18);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.82rem 0.95rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(38, 38, 38, 0.92);
+}
+
+.checkbox-row input {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-stack {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.split-fields {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+small {
+  color: var(--ink-soft);
+}
+
+/* Action and supporting cards in the sidebar. */
+.primary-button {
+  border: none;
+  border-radius: 18px;
+  padding: 0.95rem 1.1rem;
+  background: #FF3E00;
+  color: white;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  box-shadow: 0 18px 28px rgba(255, 62, 0, 0.3);
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+  background: #ff6240;
+  box-shadow: 0 20px 32px rgba(255, 62, 0, 0.4);
+}
+
+.preview-card,
+.concept-list,
+.empty-state {
+  margin-top: 1.1rem;
+  padding: 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.concept-list ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--ink-soft);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  min-height: 220px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+/* Responsive breakpoints collapse multi-column layouts for smaller screens. */
+@media (max-width: 980px) {
+  .hero,
+  .workspace-grid,
+  .metrics,
+  .project-grid,
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  #app {
+    width: min(100% - 1rem, 1180px);
+    padding: 1rem 0 2rem;
+  }
+
+  .panel,
+  .hero-note,
+  .preview-card,
+  .concept-list,
+  .empty-state,
+  input,
+  select,
+  textarea,
+  .checkbox-row,
+  .primary-button {
+    border-radius: 18px;
+  }
+
+  .hero,
+  .board-panel,
+  .sidebar-panel {
+    padding: 1rem;
+  }
+
+  .split-fields {
+    grid-template-columns: 1fr;
+  }
+}

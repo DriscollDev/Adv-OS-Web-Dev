@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Chat + AI Bot</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+    <div class="chat-layout">
+        <section class="card chat-panel">
+            <h2> Chat + AI Assistant</h2>
+            <div id="chat-box" class="chat-box"></div>
+            <div id="typing"></div>
+            <div class="composer">
+                <input type="text" id="message-input" placeholder="Type a message (use @bot to trigger AI reply)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </section>
+
+        <aside class="card side-panel">
+            <h3>Active Users</h3>
+            <ul id="user-list"></ul>
+            <p class="hint">Tip: start your message with <strong>@bot</strong> to ask the assistant directly.</p>
+        </aside>
+    </div>
+
+    <script>
+        const username = (prompt('Enter your user name') || 'Anonymous').trim();
+        const socket = io();
+        socket.emit("set username", username);
+
+        function sendMessage(){
+            const input = document.getElementById("message-input");
+            const value = input.value.trim();
+
+            if(value !== ""){
+                socket.emit("chat message", value);
+                input.value = "";
+            }
+        }
+
+        document.getElementById("message-input").addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+
+        socket.on("chat message", (msg)=>{
+            const chatBox = document.getElementById("chat-box");
+            const messageElement = document.createElement("div");
+            const meta = document.createElement("div");
+            const text = document.createElement("div");
+
+            const sentAt = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : "";
+
+            messageElement.className = `msg ${msg.type || "user"}`;
+            meta.className = "meta";
+            meta.textContent = `${msg.sender || "Unknown"}${sentAt ? ` • ${sentAt}` : ""}`;
+            text.textContent = msg.text || "";
+
+            messageElement.appendChild(meta);
+            messageElement.appendChild(text);
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        socket.on("bot typing", (isTyping) => {
+            const typing = document.getElementById("typing");
+            typing.textContent = isTyping ? "AI assistant is typing..." : "";
+        });
+
+        socket.on("user list", (userlist)=>{
+            const userListElement = document.getElementById("user-list");
+            userListElement.innerHTML = "";
+
+            userlist.forEach(user => {
+                const li = document.createElement("li");
+                li.textContent = user;
+                userListElement.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>

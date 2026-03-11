@@ -1,0 +1,116 @@
+
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #222;
+    --muted: #5c6470;
+    --user: #0b5fff;
+    --bot: #067647;
+    --system: #8a2be2;
+    --border: #dbe1ea;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(180deg, #eef2fb, #f8fbff);
+    color: var(--text);
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.chat-layout {
+    width: min(980px, 100%);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.chat-panel {
+    padding: 14px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 12px;
+    min-height: 560px;
+}
+
+.chat-box {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fbfcff;
+    padding: 12px;
+    overflow-y: auto;
+}
+
+.msg {
+    margin: 0 0 8px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f0f4fa;
+}
+
+.msg .meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+
+.msg.user { border-left: 4px solid var(--user); }
+.msg.bot { border-left: 4px solid var(--bot); background: #e9f8f0; }
+.msg.system { border-left: 4px solid var(--system); background: #f4ecff; }
+
+.composer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+}
+
+input[type="text"] {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    background: #111827;
+    color: #fff;
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+.side-panel {
+    padding: 14px;
+}
+
+.hint {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+#typing {
+    font-size: 13px;
+    color: var(--bot);
+    min-height: 18px;
+}
+
+@media (max-width: 860px) {
+    .chat-layout {
+        grid-template-columns: 1fr;
+    }
+}
