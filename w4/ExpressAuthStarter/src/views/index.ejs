@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container home">
+    <h1 class="home-title">Welcome to Auth Starter</h1>
+    
+    <% if (user) { %>
+      <div class="user-info">
+        <p><strong>Logged in as:</strong> <%= user.username %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+      </div>
+      <p>You are successfully authenticated!</p>
+      <div class="nav-buttons">
+        <form action="/auth/logout" method="POST" class="inline-form">
+          <button type="submit" class="btn-secondary">Logout</button>
+        </form>
+      </div>
+    <% } else { %>
+      <p>Please log in or register to access your account</p>
+      <div class="nav-buttons">
+        <a href="/auth/login" class="btn-primary">Login</a>
+        <a href="/auth/register" class="btn-primary">Register</a>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>
